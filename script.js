@@ -33,7 +33,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node.rightChild !== undefined) {
       prettyPrint(node.rightChild, `${prefix}${isLeft ? '│   ' : '    '}`, false);
     }
-    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+    console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
     if (node.leftChild !== undefined) {
       prettyPrint(node.leftChild, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }

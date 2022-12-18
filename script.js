@@ -34,7 +34,7 @@ class Tree {
 
     insert(value, newRoot = this.root, arr = []) {
         if (newRoot.leftChild !== undefined) this.insert(value, newRoot.leftChild, arr)
-        if (value <= newRoot.value) {
+        if (value <= newRoot.value && value > arr[arr.length-1]) {
             arr.push(value)
             arr.push(newRoot.value)
             value = undefined
@@ -43,6 +43,19 @@ class Tree {
         }
         if (newRoot.rightChild !== undefined) this.insert(value, newRoot.rightChild, arr)
         return arr, this.buildTree(arr)
+    }
+
+    delete(value, newRoot = this.root, arr = []) {
+        if (newRoot.leftChild !== undefined) this.delete(value, newRoot.leftChild, arr)
+        if (value != newRoot.value) arr.push(newRoot.value)
+        if (newRoot.rightChild !== undefined) this.delete(value, newRoot.rightChild, arr)
+        return arr, this.buildTree(arr)
+    }
+
+    find(value, newRoot = this.root) {
+        if (value === newRoot) return newRoot.value
+        if (value < this.root) this.find(value, newRoot.leftChild)
+        if (value > this.root) this.find(value, newRoot.rightChild)
     }
 }
 
@@ -59,13 +72,19 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 
-newTree.buildTree([1,3,5,7,9,11,13,14,15,16,17,18])
+newTree.buildTree([1,3,5,7,9,11,13,15,17])
 prettyPrint(newTree.root)
 console.log(newTree.root)
-console.log(newTree.insert(6))
 console.log(newTree.insert(8))
 console.log(newTree.insert(10))
 console.log(newTree.insert(12))
+
+// console.log(newTree.delete(12))
+// console.log(newTree.delete(14))
+// console.log(newTree.delete(15))
+
+console.log(newTree.find(9))
+
 
 
 prettyPrint(newTree.root)

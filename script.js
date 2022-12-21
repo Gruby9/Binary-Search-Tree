@@ -53,10 +53,34 @@ class Tree {
     }
 
     find(value, newRoot = this.root) {
-        if (value === newRoot) return newRoot.value
-        if (value < this.root) this.find(value, newRoot.leftChild)
-        if (value > this.root) this.find(value, newRoot.rightChild)
+        if (value === newRoot.value) return newRoot
+        if (value < newRoot.value) {
+            if (newRoot.leftChild === undefined) {
+                return 'There is no such a node'
+            } else {
+                return this.find(value, newRoot.leftChild)
+            }
+        } else {
+            if (newRoot.rightChild === undefined) {
+                return 'There is no such a node'
+            } else {
+                return this.find(value, newRoot.rightChild)
+            }
+        }
     }
+
+    levelOrder(newRoot = this.root, arr = [this.root], result = []) {
+        result.push(arr[0].value)
+        if (arr[0].leftChild !== undefined) {
+            arr.push(arr[0].leftChild)
+        }
+        if (arr[0].rightChild !== undefined) {
+            arr.push(arr[0].rightChild)
+        }
+        arr.shift()
+        return arr, result
+    }
+
 }
 
 const newTree = new Tree
@@ -72,7 +96,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 
-newTree.buildTree([1,3,5,7,9,11,13,15,17])
+newTree.buildTree([1,3,5,7,9,11,13])
 prettyPrint(newTree.root)
 console.log(newTree.root)
 console.log(newTree.insert(8))
@@ -83,7 +107,9 @@ console.log(newTree.insert(12))
 // console.log(newTree.delete(14))
 // console.log(newTree.delete(15))
 
-console.log(newTree.find(9))
+// console.log(newTree.find(12))
+// console.log(newTree.order())
+console.log(newTree.levelOrder())
 
 
 

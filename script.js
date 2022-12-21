@@ -78,8 +78,30 @@ class Tree {
         return result
     }
 
-    height(n) {
-        
+    height(n, result = 0) {
+        const node = this.find(n)
+        if (node === 'There is no such a node') return 'There is no such a node'
+        if (node.rightChild !== undefined) {
+            result++
+            return this.height(node.rightChild.value, result) 
+        }   
+        return result
+    }
+
+    depth(n, newRoot = this.root, result = 0) {
+        if (n === newRoot.value) return result
+        if (n < newRoot.value) {
+            if (newRoot.leftChild !== undefined) {
+                result++
+                return this.depth(n, newRoot.leftChild, result)
+            }
+        }
+        if (n > newRoot.value) {
+            if (newRoot.rightChild !== undefined) {
+                result++
+                return this.depth(n, newRoot.rightChild, result)
+            }
+        }
     }
 }
 
@@ -96,7 +118,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 
-newTree.buildTree([1,3,5,7,9,11,13,15,16,17,18,19,20,21,22,23])
+newTree.buildTree([-4,-3,-2,-1,1,3,4,5,6,7,8,9,10,11,13,15,16,17,18,19,20,21,22,23])
 prettyPrint(newTree.root)
 console.log(newTree.root)
 console.log(newTree.insert(8))
@@ -110,7 +132,8 @@ console.log(newTree.insert(12))
 // console.log(newTree.find(12))
 // console.log(newTree.order())
 console.log(newTree.levelOrder())
-
+// console.log(newTree.height(4))
+console.log(newTree.depth(9))
 
 
 prettyPrint(newTree.root)

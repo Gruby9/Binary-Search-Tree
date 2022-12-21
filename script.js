@@ -69,18 +69,18 @@ class Tree {
         }
     }
 
-    levelOrder(newRoot = this.root, arr = [this.root], result = []) {
+    levelOrder(arr = [this.root], result = []) {
         result.push(arr[0].value)
-        if (arr[0].leftChild !== undefined) {
-            arr.push(arr[0].leftChild)
-        }
-        if (arr[0].rightChild !== undefined) {
-            arr.push(arr[0].rightChild)
-        }
+        if (arr[0].leftChild !== undefined) arr.push(arr[0].leftChild)
+        if (arr[0].rightChild !== undefined) arr.push(arr[0].rightChild)
         arr.shift()
-        return arr, result
+        if (arr.length !== 0) this.levelOrder(arr, result)
+        return result
     }
 
+    height(n) {
+        
+    }
 }
 
 const newTree = new Tree
@@ -96,7 +96,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 }
 
 
-newTree.buildTree([1,3,5,7,9,11,13])
+newTree.buildTree([1,3,5,7,9,11,13,15,16,17,18,19,20,21,22,23])
 prettyPrint(newTree.root)
 console.log(newTree.root)
 console.log(newTree.insert(8))
